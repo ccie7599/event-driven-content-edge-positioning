@@ -11,11 +11,21 @@ This repository is the home of an edge-native design meant to solve performance 
 
 The benefits of this design include - 
 
-1. 
+1. "Eager processing" - allowing the initial event (such as login) to kick off the object generation greatly reduces and can eliminate the impact of processing time on the user experience. 
 2. Low-latency delivery- by positioning the content across the distributed nodes, download performance for the user can improve greatly by avoiding a round-trip to the backend system.
 3. More security via less surface - by pre-positioning the content, the backend system no longer is in-line with the user request (as the distributed edge system becomes the origin source-of-truth for the content). This results in less traffic coming inbound to the backend system and reduces the potential attack surface in a security context.
 4. System arbitrage - As pre-posisitioning takes the backend system out-of-line from the user request, the backend system can be placed nearly anywhere. This is advantageous in cases where the routine to generate the content is expensive from a computational standpoint. By completing the computation and publishing the content across the distributed nodes before the user makes a request, latency can be avoided as a placement factor, and computation can be located in places more cost-advantageous (regardless of latency). 
 
-## Diagram
+## Demonstration 
+
+### Diagram
 
 ![edge positioning drawio](https://github.com/user-attachments/assets/5ab8b7d1-4c8b-441f-8bd1-7701903c49ad)
+
+### Description
+
+### Components 
+
+This repository builds an example of a lightweight content positioning system and includes a web client to show the benefits. The below steps include-
+
+* An example Offer Generator 
