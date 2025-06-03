@@ -24,8 +24,23 @@ The benefits of this design include -
 
 ### Description
 
+In the demonstration scenario, we are assuming that the user is connecting to an online retailer, and that the retailer is building unique offers or coupons for the user based on profile or other information (for instance, the user's geo-location derived from IP address).
+
+The offer generation process can be compute intensive, and the retailer doesn't want the user to wait until the generation is complete before allowing them to continue into the store. 
+
+However, the retailer also does not want to wait until a later point in their visit before the user is shown the offer. Ideally, the offer should come to user as soon as it's generated. 
+
 ### Components 
 
 This repository builds an example of a lightweight content positioning system and includes a web client to show the benefits. The below steps include-
 
-* An example Offer Generator 
+* An Offer Generator, which listens on an HTTP endpoint, and returns a unique ticket ID to user requests. The generator then builds a JSON object (representing an offer unique to that user), includes the ticket ID in the object, and publishes the offer to a distributed message queue.
+* A node client, which is subscribed to the offers subject on the distributed message queue, and caches the offers objects locally.
+* A simple HTTP endpoint, which serves the offer objects to clients, using the ticket ID as a request argument.
+* An http client, which simulates the user story by generating a initial "login" event, then showing timing differences between the user methods for receiving their offers. 
+
+Other components include-
+* A Content Delivery and Security network in front of all of the endpoints.
+* Global load-balancing (typically as part of the CDN), to bring users in the world to the closest distributed node.
+
+
